@@ -23,7 +23,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   }
 };
 
-export default function CreateNotes() {
+export default function CreateNote() {
   return (
     <div className="w-svw h-svh max-w-screen-sm mx-auto flex flex-col relative">
       <div className="sticky top-0 p-4 flex items-center gap-4 justify-between">

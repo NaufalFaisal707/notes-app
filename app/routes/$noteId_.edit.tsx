@@ -1,6 +1,6 @@
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { Form, Link, redirect, useLoaderData } from "@remix-run/react";
-import { PencilLine, Save } from "lucide-react";
+import { PencilLine, Save, SearchX } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
@@ -26,7 +26,23 @@ export const loader = ({ params }: LoaderFunctionArgs) => {
   return Response.json(getNoteById(params.noteId!));
 };
 
-export default function UpdateNoteById() {
+export const ErrorBoundary = () => {
+  return (
+    <div className="w-svw h-svh max-w-screen-sm mx-auto flex flex-col relative">
+      <div className="select-none opacity-60 grow flex flex-col items-center justify-center gap-4">
+        <SearchX className="size-12" />
+        <h1>Catatan tidak di temukan</h1>
+        <Link to="/">
+          <Button variant="outline" title="Kembali">
+            Kembali
+          </Button>
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+export default function EditNoteById() {
   const loaderData = useLoaderData<Notes>();
 
   return (
