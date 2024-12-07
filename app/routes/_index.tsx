@@ -92,7 +92,7 @@ export default function IndexNotes() {
 
   return (
     <div className="w-svw h-svh max-w-screen-sm mx-auto flex flex-col relative">
-      <div className="sticky top-0 p-4 flex items-center gap-4 justify-between">
+      <div className="sticky top-0 p-4 flex items-center gap-4 justify-between bg-white">
         <div className="md:flex gap-2 truncate hidden select-none items-center">
           <Notebook className="min-w-fit" />
           <h1 className="text-lg">Notes App</h1>
@@ -114,7 +114,9 @@ export default function IndexNotes() {
         </div>
       </div>
 
-      <RenderNotes />
+      <div className="overflow-auto">
+        <RenderNotes />
+      </div>
 
       <Link
         to="/create"
