@@ -29,7 +29,7 @@ export default function IndexNotes() {
   const RenderNotes = () => {
     if (filterNotes().length === 0 && cariJudulNote) {
       return (
-        <div className="select-none opacity-50 grow flex flex-col items-center justify-center gap-4">
+        <div className="select-none opacity-60 grow flex flex-col items-center justify-center gap-4">
           <SearchX className="size-12" />
           <h1>Tidak di temukan hasil dari pencarian</h1>
         </div>
@@ -38,7 +38,7 @@ export default function IndexNotes() {
 
     if (filterNotes().length === 0) {
       return (
-        <div className="select-none opacity-50 grow flex flex-col items-center justify-center gap-4">
+        <div className="select-none opacity-60 grow flex flex-col items-center justify-center gap-4">
           <NotebookText className="size-12" />
           <h1>Belum ada catatan di sini</h1>
         </div>

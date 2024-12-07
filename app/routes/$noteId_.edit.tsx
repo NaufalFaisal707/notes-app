@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs } from "@remix-run/node";
+import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { Form, Link, redirect, useLoaderData } from "@remix-run/react";
 import { PencilLine, Save } from "lucide-react";
 import { Button } from "~/components/ui/button";
@@ -6,6 +6,10 @@ import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
 import { Notes } from "~/db/db.notes";
 import { getNoteById, updateNoteById } from "~/utils/notes.function";
+
+export const meta: MetaFunction = () => {
+  return [{ title: "Edit Catatan" }];
+};
 
 export const action = async ({ request, params }: LoaderFunctionArgs) => {
   const { title, content } = Object.fromEntries(await request.formData()) as {

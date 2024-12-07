@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs } from "@remix-run/node";
+import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { Form, Link, useLoaderData } from "@remix-run/react";
 import {
   ChevronLeft,
@@ -23,6 +23,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "~/components/ui/dialog";
+
+export const meta: MetaFunction = ({ data }) => {
+  const { title } = data as Notes;
+
+  return [{ title: title.split(/\s+/).slice(0, 6).join(" ") + "..." }];
+};
 
 export const loader = ({ params }: LoaderFunctionArgs) => {
   return Response.json(getNoteById(params.noteId!));
