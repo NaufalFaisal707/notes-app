@@ -69,7 +69,7 @@ export default function EditNoteById() {
   return (
     <div className="w-svw h-svh max-w-screen-sm mx-auto flex flex-col relative">
       <div className="sticky top-0 p-4 flex items-center gap-4 justify-between">
-        <div className="flex text-center gap-2 truncate select-none">
+        <div className="flex items-center gap-2 truncate select-none">
           <PencilLine className="min-w-fit" />
           <h1 className="text-lg">Edit Catatan</h1>
         </div>

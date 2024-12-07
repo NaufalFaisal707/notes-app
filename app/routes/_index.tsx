@@ -93,7 +93,7 @@ export default function IndexNotes() {
   return (
     <div className="w-svw h-svh max-w-screen-sm mx-auto flex flex-col relative">
       <div className="sticky top-0 p-4 flex items-center gap-4 justify-between">
-        <div className="md:flex text-center gap-2 truncate hidden select-none">
+        <div className="md:flex gap-2 truncate hidden select-none items-center">
           <Notebook className="min-w-fit" />
           <h1 className="text-lg">Notes App</h1>
         </div>
