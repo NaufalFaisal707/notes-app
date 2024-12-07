@@ -18,3 +18,5 @@ npm i
 npm run build
 npm start
 ```
+
+Versi nodejs: ^20.18
