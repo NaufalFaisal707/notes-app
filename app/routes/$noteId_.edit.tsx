@@ -7,25 +7,19 @@ import { Textarea } from "~/components/ui/textarea";
 import { Notes } from "~/db/db.notes";
 import { getNoteById, updateNoteById } from "~/utils/notes.function";
 
-export const loader = ({ params }: LoaderFunctionArgs) => {
-  if (params.noteId) {
-    return Response.json(getNoteById(params.noteId));
-  }
-
-  throw "can't find notes id";
-};
-
 export const action = async ({ request, params }: LoaderFunctionArgs) => {
   const { title, content } = Object.fromEntries(await request.formData()) as {
     title: string;
     content: string;
   };
 
-  const success = updateNoteById(params.noteId!, { title, content });
-
-  if (success) {
-    return redirect("/");
+  if (updateNoteById(params.noteId!, { title, content })) {
+    return redirect("/" + params.noteId!);
   }
+};
+
+export const loader = ({ params }: LoaderFunctionArgs) => {
+  return Response.json(getNoteById(params.noteId!));
 };
 
 export default function UpdateNoteById() {
@@ -62,7 +56,7 @@ export default function UpdateNoteById() {
         />
 
         <div className="flex gap-2 self-end">
-          <Link to="/">
+          <Link to={"/" + loaderData.note_id}>
             <Button variant="outline" type="button">
               Batalkan
             </Button>

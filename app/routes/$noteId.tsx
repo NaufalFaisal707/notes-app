@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { Form, Link, useLoaderData } from "@remix-run/react";
 import {
   ChevronLeft,
   EllipsisVertical,
@@ -15,6 +15,14 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "~/components/ui/dialog";
 
 export const loader = ({ params }: LoaderFunctionArgs) => {
   return Response.json(getNoteById(params.noteId!));
@@ -51,16 +59,42 @@ export default function PreviewNoteById() {
                 </Button>
               </Link>
 
-              <Link to={"/" + loaderData.note_id + "/delete"}>
-                <Button
-                  variant="destructive"
-                  title="Hapus Catatan"
-                  className="w-full"
-                >
-                  <Trash2 />
-                  <span>Hapus</span>
-                </Button>
-              </Link>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="destructive"
+                    title="Hapus Catatan"
+                    className="w-full"
+                  >
+                    <Trash2 />
+                    <span>Hapus</span>
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>
+                      Yakin ingin menghapus catatan ini?
+                    </DialogTitle>
+                    <DialogDescription>
+                      Catatan akan di hapus permanen!
+                    </DialogDescription>
+                  </DialogHeader>
+
+                  <Form
+                    method="POST"
+                    action={"/" + loaderData.note_id + "/delete"}
+                  >
+                    <Button
+                      variant="destructive"
+                      title="Hapus Catatan"
+                      className="w-full"
+                    >
+                      <Trash2 />
+                      <span>Ya, hapus</span>
+                    </Button>
+                  </Form>
+                </DialogContent>
+              </Dialog>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

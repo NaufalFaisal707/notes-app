@@ -14,6 +14,10 @@ export function addNote({
   return true;
 }
 
+export function getNote() {
+  return allNotes;
+}
+
 export function getNoteById(note_id: string) {
   const targetNote = allNotes.find((f) => f.note_id === note_id);
   if (targetNote) {
@@ -40,11 +44,11 @@ export function updateNoteById(
   throw "error update note id";
 }
 
-export function deleteNote(note_id: string) {
+export function deleteNoteById(note_id: string) {
   const targetNote = allNotes.findIndex((f) => f.note_id === note_id);
 
   if (targetNote !== -1) {
-    delete allNotes[targetNote];
+    allNotes.splice(targetNote, 1);
   }
 
   return true;

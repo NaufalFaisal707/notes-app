@@ -4,18 +4,15 @@ import { Notebook, NotebookText, Plus, SearchX } from "lucide-react";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
-import { allNotes, Notes } from "~/db/db.notes";
+import { Notes } from "~/db/db.notes";
+import { getNote } from "~/utils/notes.function";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Notes App" }];
 };
 
 export const loader = () => {
-  return Response.json(allNotes, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  return Response.json(getNote());
 };
 
 export default function IndexNotes() {
