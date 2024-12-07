@@ -1,5 +1,5 @@
-import { ActionFunctionArgs } from "@remix-run/node";
-import { Form, Link, MetaFunction, redirect } from "@remix-run/react";
+import { ActionFunctionArgs, redirectDocument } from "@remix-run/node";
+import { Form, Link, MetaFunction } from "@remix-run/react";
 import { PencilLine, Save } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
@@ -16,10 +16,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     content: string;
   };
 
-  const success = addNote({ title, content });
-
-  if (success) {
-    return redirect("/");
+  if (addNote({ title, content })) {
+    return redirectDocument("/");
   }
 };
 
