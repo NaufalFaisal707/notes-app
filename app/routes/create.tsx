@@ -34,7 +34,7 @@ export default function CreateNote() {
       <Form method="POST" className="grow p-4 flex flex-col gap-4">
         <Input
           required
-          minLength={6}
+          minLength={1}
           maxLength={64}
           name="title"
           placeholder="Judul"
@@ -42,7 +42,7 @@ export default function CreateNote() {
 
         <Textarea
           required
-          minLength={6}
+          minLength={1}
           maxLength={300}
           name="content"
           placeholder="Isi catatan"
