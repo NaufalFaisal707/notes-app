@@ -6,6 +6,7 @@ Ini adalah aplikasi catatan sederhana berbasis web yang menggunakan metode SSR (
 
 - [ReactJS](https://react.dev/)
 - [RemixJS](https://remix.run/)
+- [Lucide](https://lucide.dev/)
 - [Shadcn/ui](https://ui.shadcn.com/)
 - [TailwindCSS](https://tailwindcss.com/)
 
