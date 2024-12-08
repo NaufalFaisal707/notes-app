@@ -55,7 +55,7 @@ export default function IndexNotes() {
     }
 
     return (
-      <div className="grid sm:grid-cols-3 grid-cols-2 flex-wrap gap-4 p-4">
+      <div className="grid sm:grid-cols-3 grid-cols-2 flex-wrap gap-4 p-4 overflow-auto">
         {filterNotes().map((m, key) => {
           return <NoteCard notes_data={m} key={key} />;
         })}
@@ -114,9 +114,7 @@ export default function IndexNotes() {
         </div>
       </div>
 
-      <div className="overflow-auto">
-        <RenderNotes />
-      </div>
+      <RenderNotes />
 
       <Link
         to="/create"

@@ -1,4 +1,5 @@
 import {
+  Link,
   Links,
   Meta,
   Outlet,
@@ -9,6 +10,7 @@ import type { LinksFunction } from "@remix-run/node";
 
 import "./tailwind.css";
 import { HeartCrack } from "lucide-react";
+import { Button } from "./components/ui/button";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -30,6 +32,11 @@ export const ErrorBoundary = () => {
         <HeartCrack className="size-12" />
         <h1>Aplikasi Rusak!</h1>
       </div>
+      <Link to="/">
+        <Button variant="outline" title="Kembali">
+          Muat ulang
+        </Button>
+      </Link>
     </div>
   );
 };
