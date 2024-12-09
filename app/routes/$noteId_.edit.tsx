@@ -14,7 +14,7 @@ import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
 import { Notes } from "~/db/db.notes";
-import { getNoteById, updateNoteById } from "~/utils/notes.function";
+import { getNoteById, updateNoteById } from "~/utils/note.function";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Edit Catatan" }];

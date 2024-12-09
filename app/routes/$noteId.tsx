@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Notes } from "~/db/db.notes";
-import { getNoteById } from "~/utils/notes.function";
+import { getNoteById } from "~/utils/note.function";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,6 +29,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "~/components/ui/dialog";
+import { noteThemes } from "~/utils/note.themes";
+import { twMerge } from "tailwind-merge";
+import { ScrollArea } from "~/components/ui/scroll-area";
 
 export const meta: MetaFunction = ({ data }) => {
   if (data) {
@@ -75,8 +78,16 @@ export const ErrorBoundary = () => {
 export default function PreviewNoteById() {
   const loaderData = useLoaderData<Notes>();
 
+  const { text_color, bg_color } = noteThemes[loaderData.theme];
+
   return (
-    <div className="w-svw h-svh max-w-screen-sm mx-auto flex flex-col relative">
+    <div
+      className={twMerge(
+        bg_color,
+        text_color,
+        "w-svw h-svh max-w-screen-sm mx-auto flex flex-col relative"
+      )}
+    >
       <div className="sticky top-0 p-4 flex items-center gap-2 justify-between">
         <Link to="/">
           <Button variant="outline" title="Kembali">
@@ -85,9 +96,11 @@ export default function PreviewNoteById() {
         </Link>
 
         <div className="flex gap-2">
-          <Button variant="outline" title="Pilih Tema Catatan">
-            <SwatchBook />
-          </Button>
+          <Link to={"/" + loaderData.note_id + "/theme"}>
+            <Button variant="outline" title="Pilih Tema Catatan">
+              <SwatchBook />
+            </Button>
+          </Link>
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -128,11 +141,7 @@ export default function PreviewNoteById() {
                     method="POST"
                     action={"/" + loaderData.note_id + "/delete"}
                   >
-                    <Button
-                      variant="destructive"
-                      title="Hapus Catatan"
-                      className="w-full"
-                    >
+                    <Button variant="destructive" className="w-full">
                       <Trash2 />
                       <span>Ya, hapus</span>
                     </Button>
@@ -144,20 +153,23 @@ export default function PreviewNoteById() {
         </div>
       </div>
 
-      <div className="p-4 flex flex-col gap-4">
-        <h1 className="text-lg capitalize font-semibold">{loaderData.title}</h1>
+      <ScrollArea className="grow">
+        <div className="p-4 flex flex-col gap-4 grow">
+          <h1 className="text-lg capitalize font-semibold">
+            {loaderData.title}
+          </h1>
 
-        <p
-          className="whitespace-pre-wrap overflow-hidden"
-          style={{
-            display: "-webkit-box",
-            WebkitLineClamp: 3,
-            WebkitBoxOrient: "vertical",
-          }}
-        >
-          {loaderData.content}
-        </p>
-      </div>
+          <p
+            className="whitespace-pre-wrap overflow-hidden"
+            style={{
+              display: "-webkit-box",
+              WebkitBoxOrient: "vertical",
+            }}
+          >
+            {loaderData.content}
+          </p>
+        </div>
+      </ScrollArea>
     </div>
   );
 }

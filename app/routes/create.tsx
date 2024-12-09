@@ -4,7 +4,7 @@ import { PencilLine, Save } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
-import { addNote } from "~/utils/notes.function";
+import { addNote } from "~/utils/note.function";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Buat Catatan" }];

@@ -2,10 +2,13 @@ import { MetaFunction } from "@remix-run/node";
 import { ClientLoaderFunction, Link, useLoaderData } from "@remix-run/react";
 import { Notebook, NotebookText, Plus, SearchX } from "lucide-react";
 import { useState } from "react";
+import { twMerge } from "tailwind-merge";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
+import { ScrollArea } from "~/components/ui/scroll-area";
 import { Notes } from "~/db/db.notes";
-import { getNote } from "~/utils/notes.function";
+import { getNote } from "~/utils/note.function";
+import { noteThemes } from "~/utils/note.themes";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Notes App" }];
@@ -55,19 +58,27 @@ export default function IndexNotes() {
     }
 
     return (
-      <div className="grid sm:grid-cols-3 grid-cols-2 flex-wrap gap-4 p-4 overflow-auto">
-        {filterNotes().map((m, key) => {
-          return <NoteCard notes_data={m} key={key} />;
-        })}
-      </div>
+      <ScrollArea>
+        <div className="grid sm:grid-cols-3 grid-cols-2 flex-wrap gap-4 p-4 overflow-auto">
+          {filterNotes().map((m, key) => {
+            return <NoteCard notes_data={m} key={key} />;
+          })}
+        </div>
+      </ScrollArea>
     );
   };
 
   const NoteCard = ({ notes_data }: { notes_data: Notes }) => {
+    const { text_color, bg_color } = noteThemes[notes_data.theme];
+
     return (
       <Link
         to={"/" + notes_data.note_id}
-        className="border rounded-md p-4 grid gap-2"
+        className={twMerge(
+          text_color,
+          bg_color,
+          "rounded-md p-4 grid gap-2 shadow"
+        )}
       >
         <h1
           title={notes_data.title.split(/\s+/).slice(0, 6).join(" ") + "..."}

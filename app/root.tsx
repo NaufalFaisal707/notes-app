@@ -33,7 +33,7 @@ export const ErrorBoundary = () => {
         <h1>Aplikasi Rusak!</h1>
       </div>
       <Link to="/">
-        <Button variant="outline" title="Kembali">
+        <Button variant="outline" title="Muat ulang">
           Muat ulang
         </Button>
       </Link>
