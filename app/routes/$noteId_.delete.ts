@@ -1,10 +1,10 @@
-import { ActionFunctionArgs, redirectDocument } from "@remix-run/node";
+import { ActionFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/react";
 import { deleteNoteById } from "~/utils/note.function";
 
 export const action = ({ params }: ActionFunctionArgs) => {
   if (deleteNoteById(params.noteId!)) {
-    return redirectDocument("/");
+    return redirect("/");
   }
 };
 

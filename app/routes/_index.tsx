@@ -1,5 +1,5 @@
 import { MetaFunction } from "@remix-run/node";
-import { ClientLoaderFunction, Link, useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import { Notebook, NotebookText, Plus, SearchX } from "lucide-react";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
@@ -16,15 +16,6 @@ export const meta: MetaFunction = () => {
 
 export const loader = () => {
   return Response.json(getNote());
-};
-
-let cached: unknown;
-export const clientLoader: ClientLoaderFunction = async ({ serverLoader }) => {
-  if (cached) {
-    return cached;
-  }
-  cached = await serverLoader();
-  return cached;
 };
 
 export default function IndexNotes() {

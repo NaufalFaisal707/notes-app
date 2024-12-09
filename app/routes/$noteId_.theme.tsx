@@ -2,14 +2,9 @@ import {
   ActionFunctionArgs,
   LoaderFunctionArgs,
   MetaFunction,
-  redirectDocument,
+  redirect,
 } from "@remix-run/node";
-import {
-  ClientLoaderFunction,
-  Form,
-  Link,
-  useLoaderData,
-} from "@remix-run/react";
+import { Form, Link, useLoaderData } from "@remix-run/react";
 import { ChevronLeft, NotebookText, SearchX } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Notes, NoteTheme } from "~/db/db.notes";
@@ -34,24 +29,12 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   };
 
   if (updateNoteById(params.noteId!, { theme })) {
-    return redirectDocument("/" + params.noteId + "/theme");
+    return redirect("/" + params.noteId + "/theme");
   }
 };
 
 export const loader = ({ params }: LoaderFunctionArgs) => {
   return Response.json(getNoteById(params.noteId!));
-};
-
-let cached: Notes;
-export const clientLoader: ClientLoaderFunction = async ({
-  serverLoader,
-  params,
-}) => {
-  if (cached && cached.note_id === params.noteId!) {
-    return cached;
-  }
-  cached = await serverLoader();
-  return cached;
 };
 
 export const ErrorBoundary = () => {

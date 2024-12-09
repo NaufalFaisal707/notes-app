@@ -1,10 +1,5 @@
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import {
-  ClientLoaderFunction,
-  Form,
-  Link,
-  useLoaderData,
-} from "@remix-run/react";
+import { Form, Link, useLoaderData } from "@remix-run/react";
 import {
   ChevronLeft,
   EllipsisVertical,
@@ -45,18 +40,6 @@ export const meta: MetaFunction = ({ data }) => {
 
 export const loader = ({ params }: LoaderFunctionArgs) => {
   return Response.json(getNoteById(params.noteId!));
-};
-
-let cached: Notes;
-export const clientLoader: ClientLoaderFunction = async ({
-  serverLoader,
-  params,
-}) => {
-  if (cached && cached.note_id === params.noteId!) {
-    return cached;
-  }
-  cached = await serverLoader();
-  return cached;
 };
 
 export const ErrorBoundary = () => {

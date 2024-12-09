@@ -1,14 +1,5 @@
-import {
-  LoaderFunctionArgs,
-  MetaFunction,
-  redirectDocument,
-} from "@remix-run/node";
-import {
-  ClientLoaderFunction,
-  Form,
-  Link,
-  useLoaderData,
-} from "@remix-run/react";
+import { LoaderFunctionArgs, MetaFunction, redirect } from "@remix-run/node";
+import { Form, Link, useLoaderData } from "@remix-run/react";
 import { PencilLine, Save, SearchX } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
@@ -27,24 +18,12 @@ export const action = async ({ request, params }: LoaderFunctionArgs) => {
   };
 
   if (updateNoteById(params.noteId!, { title, content })) {
-    return redirectDocument("/" + params.noteId!);
+    return redirect("/" + params.noteId!);
   }
 };
 
 export const loader = ({ params }: LoaderFunctionArgs) => {
   return Response.json(getNoteById(params.noteId!));
-};
-
-let cached: Notes;
-export const clientLoader: ClientLoaderFunction = async ({
-  serverLoader,
-  params,
-}) => {
-  if (cached && cached.note_id === params.noteId!) {
-    return cached;
-  }
-  cached = await serverLoader();
-  return cached;
 };
 
 export const ErrorBoundary = () => {
