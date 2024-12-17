@@ -68,7 +68,7 @@ export default function IndexNotes() {
         className={twMerge(
           text_color,
           bg_color,
-          "rounded-md p-4 grid gap-2 shadow"
+          "rounded-md p-4 grid gap-2 shadow border"
         )}
       >
         <h1
