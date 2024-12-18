@@ -5,7 +5,7 @@ import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
 import { Notes } from "~/db/db.notes";
-import { getNoteById, updateNoteById } from "~/utils/note.function";
+import { db } from "~/db/db.server";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Edit Catatan" }];
@@ -17,13 +17,25 @@ export const action = async ({ request, params }: LoaderFunctionArgs) => {
     content: string;
   };
 
-  if (updateNoteById(params.noteId!, { title, content })) {
-    return redirect("/" + params.noteId!);
-  }
+  await db.notes.update({
+    where: {
+      note_id: params.noteId!,
+    },
+    data: {
+      title,
+      content,
+    },
+  });
+
+  return redirect("/" + params.noteId!);
 };
 
-export const loader = ({ params }: LoaderFunctionArgs) => {
-  return Response.json(getNoteById(params.noteId!));
+export const loader = async ({ params }: LoaderFunctionArgs) => {
+  return await db.notes.findUnique({
+    where: {
+      note_id: params.noteId!,
+    },
+  });
 };
 
 export const ErrorBoundary = () => {

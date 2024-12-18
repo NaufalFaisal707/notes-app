@@ -8,10 +8,10 @@ import { Form, Link, useLoaderData } from "@remix-run/react";
 import { ChevronLeft, NotebookText, SearchX } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Notes, NoteTheme } from "~/db/db.notes";
-import { getNoteById, updateNoteById } from "~/utils/note.function";
 import { noteThemes } from "~/utils/note.themes";
 import { twMerge } from "tailwind-merge";
 import { ScrollArea, ScrollBar } from "~/components/ui/scroll-area";
+import { db } from "~/db/db.server";
 
 export const meta: MetaFunction = ({ data }) => {
   if (data) {
@@ -28,13 +28,24 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
     theme: NoteTheme;
   };
 
-  if (updateNoteById(params.noteId!, { theme })) {
-    return redirect("/" + params.noteId + "/theme");
-  }
+  await db.notes.update({
+    where: {
+      note_id: params.noteId!,
+    },
+    data: {
+      theme,
+    },
+  });
+
+  return redirect("/" + params.noteId + "/theme");
 };
 
-export const loader = ({ params }: LoaderFunctionArgs) => {
-  return Response.json(getNoteById(params.noteId!));
+export const loader = async ({ params }: LoaderFunctionArgs) => {
+  return await db.notes.findUnique({
+    where: {
+      note_id: params.noteId!,
+    },
+  });
 };
 
 export const ErrorBoundary = () => {

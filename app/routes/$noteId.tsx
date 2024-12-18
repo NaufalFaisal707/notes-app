@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Notes } from "~/db/db.notes";
-import { getNoteById } from "~/utils/note.function";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,6 +26,7 @@ import {
 import { noteThemes } from "~/utils/note.themes";
 import { twMerge } from "tailwind-merge";
 import { ScrollArea } from "~/components/ui/scroll-area";
+import { db } from "~/db/db.server";
 
 export const meta: MetaFunction = ({ data }) => {
   if (data) {
@@ -38,8 +38,12 @@ export const meta: MetaFunction = ({ data }) => {
   return [{ title: "Catatan tidak di temukan" }];
 };
 
-export const loader = ({ params }: LoaderFunctionArgs) => {
-  return Response.json(getNoteById(params.noteId!));
+export const loader = async ({ params }: LoaderFunctionArgs) => {
+  return await db.notes.findUnique({
+    where: {
+      note_id: params.noteId!,
+    },
+  });
 };
 
 export const ErrorBoundary = () => {

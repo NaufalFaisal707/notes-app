@@ -4,7 +4,7 @@ import { PencilLine, Save } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
-import { addNote } from "~/utils/note.function";
+import { db } from "~/db/db.server";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Buat Catatan" }];
@@ -16,9 +16,15 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     content: string;
   };
 
-  if (addNote({ title, content })) {
-    return redirect("/");
-  }
+  await db.notes.create({
+    data: {
+      title,
+      content,
+      theme: "default",
+    },
+  });
+
+  return redirect("/");
 };
 
 export default function CreateNote() {

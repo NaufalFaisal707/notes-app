@@ -7,15 +7,15 @@ import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { Notes } from "~/db/db.notes";
-import { getNote } from "~/utils/note.function";
+import { db } from "~/db/db.server";
 import { noteThemes } from "~/utils/note.themes";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Notes App" }];
 };
 
-export const loader = () => {
-  return Response.json(getNote());
+export const loader = async () => {
+  return await db.notes.findMany();
 };
 
 export default function IndexNotes() {
