@@ -1,6 +1,6 @@
 # Simple Notes
 
-Ini adalah aplikasi catatan sederhana berbasis web yang menggunakan metode SSR (Server Side Rendering).
+Ini adalah aplikasi catatan sederhana berbasis web yang menggunakan metode SSR (Server Side Rendering) + Prisma!
 
 ### Framework yang di gunakan:
 
@@ -9,6 +9,7 @@ Ini adalah aplikasi catatan sederhana berbasis web yang menggunakan metode SSR (
 - [Lucide](https://lucide.dev/)
 - [Shadcn/ui](https://ui.shadcn.com/)
 - [TailwindCSS](https://tailwindcss.com/)
+- [Prisma](www.prisma.io)
 
 ### Langkah instalasi:
 
