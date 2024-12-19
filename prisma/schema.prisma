@@ -17,7 +17,7 @@ model Notes {
   note_id String @id @default(cuid())
   title String
   content String
-  theme NoteTheme
+  theme NoteTheme @default(default)
 }
 
 enum NoteTheme{
