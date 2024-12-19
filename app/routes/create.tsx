@@ -20,7 +20,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     data: {
       title,
       content,
-      theme: "default",
     },
   });
 
